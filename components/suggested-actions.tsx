@@ -18,7 +18,7 @@ function PureSuggestedActions({ chatId, append }: SuggestedActionsProps) {
     {
       title: 'Add a TODO',
       label: 'Add a meeting at tomorrow 10am.',
-      action: 'Add a meeting at tomorrow 10am.',
+      action: '解释一下勾股定理',
     },
     {
       title: 'Reschedule my day',
