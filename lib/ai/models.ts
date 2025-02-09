@@ -1,22 +1,46 @@
+import { config } from 'dotenv';
 import { deepseek } from '@ai-sdk/deepseek';
+import { createOpenAICompatible } from '@ai-sdk/openai-compatible';
 import {
   customProvider,
   extractReasoningMiddleware,
   wrapLanguageModel,
 } from 'ai';
 
+config({
+  path: '.env',
+});
+
+// 配置腾讯云
+const TencentCloud = createOpenAICompatible({
+  baseURL: 'https://api.lkeap.cloud.tencent.com/v1',
+  apiKey: process.env.TENCENT_API_KEY,
+  name: 'TencentCloud',
+})
+const tencentR1 = TencentCloud('deepseek-r1')
+const tencentV3 = TencentCloud('deepseek-v3')
+
+// 配置智谱大模型
+const GLM = createOpenAICompatible({
+  baseURL: 'https://open.bigmodel.cn/api/paas/v4/',
+  apiKey: process.env.GLM_API_KEY,
+  name: 'GLM',
+})
+const glm4Flash = GLM('glm-4-flash')
+const glm4Plus = GLM('glm-4-plus')
+
 export const DEFAULT_CHAT_MODEL: string = 'chat-model-small';
 
 export const myProvider = customProvider({
   languageModels: {
-    'chat-model-small': deepseek('deepseek-chat'),
-    'chat-model-large': deepseek('deepseek-chat'),
+    'chat-model-small': glm4Flash,
+    'chat-model-large': glm4Plus,
     'chat-model-reasoning': wrapLanguageModel({
-      model: deepseek('deepseek-reasoner'),
+      model: tencentR1,
       middleware: extractReasoningMiddleware({ tagName: 'think' }),
     }),
-    'title-model': deepseek('deepseek-chat'),
-    'block-model': deepseek('deepseek-chat'),
+    'title-model': tencentV3,
+    'block-model': tencentV3,
   },
   // imageModels: {
   //   'small-model': openai.image('dall-e-2'),
