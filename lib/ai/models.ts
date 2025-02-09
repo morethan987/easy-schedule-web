@@ -33,14 +33,14 @@ export const DEFAULT_CHAT_MODEL: string = 'chat-model-small';
 
 export const myProvider = customProvider({
   languageModels: {
-    'chat-model-small': glm4Flash,
+    'chat-model-small': deepseek('deepseek-chat'),
     'chat-model-large': glm4Plus,
     'chat-model-reasoning': wrapLanguageModel({
       model: tencentR1,
       middleware: extractReasoningMiddleware({ tagName: 'think' }),
     }),
     'title-model': tencentV3,
-    'block-model': tencentV3,
+    'block-model': deepseek('deepseek-chat'),
   },
   // imageModels: {
   //   'small-model': openai.image('dall-e-2'),

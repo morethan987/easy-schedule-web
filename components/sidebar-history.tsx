@@ -174,6 +174,7 @@ export function SidebarHistory({ user }: { user: User | undefined }) {
     });
 
     toast.promise(deletePromise, {
+      duration: 1000,
       loading: 'Deleting chat...',
       success: () => {
         mutate((history) => {

@@ -69,7 +69,7 @@ interface Metadata {
 export const codeBlock = new Block<'code', Metadata>({
   kind: 'code',
   description:
-    'Useful for code generation; Code execution is only available for python code.',
+    '生成代码的时候调用; 代码执行只支持Python',
   initialize: async ({ setMetadata }) => {
     setMetadata({
       outputs: [],
