@@ -17,8 +17,8 @@ const TencentCloud = createOpenAICompatible({
   apiKey: process.env.TENCENT_API_KEY,
   name: 'TencentCloud',
 })
-const tencentR1 = TencentCloud('deepseek-r1')
-const tencentV3 = TencentCloud('deepseek-v3')
+const tencentR1 = TencentCloud('deepseek-r1') // 推理模型
+const tencentV3 = TencentCloud('deepseek-v3') // 文本模型
 
 // 配置智谱大模型
 const GLM = createOpenAICompatible({
@@ -26,8 +26,11 @@ const GLM = createOpenAICompatible({
   apiKey: process.env.GLM_API_KEY,
   name: 'GLM',
 })
-const glm4Flash = GLM('glm-4-flash')
-const glm4Plus = GLM('glm-4-plus')
+const glm4Flash = GLM('glm-4-flash') // 文本模型
+const glm4Plus = GLM('glm-4-plus') // 文本模型
+const glm4VPlus = GLM('glm-4v-plus') // 多模态模型
+const glm4VFlash = GLM('glm-4v-flash') // 多模态模型
+
 
 export const DEFAULT_CHAT_MODEL: string = 'chat-model-small';
 
@@ -35,6 +38,8 @@ export const myProvider = customProvider({
   languageModels: {
     'chat-model-small': deepseek('deepseek-chat'),
     'chat-model-large': glm4Plus,
+    'chat-model-multimodal-small': glm4VFlash,
+    'chat-model-multimodal-large': glm4VPlus,
     'chat-model-reasoning': wrapLanguageModel({
       model: tencentR1,
       middleware: extractReasoningMiddleware({ tagName: 'think' }),
@@ -69,5 +74,15 @@ export const chatModels: Array<ChatModel> = [
     id: 'chat-model-reasoning',
     name: 'Reasoning model',
     description: 'Uses advanced reasoning',
+  },
+  {
+    id: 'chat-model-multimodal-small',
+    name: 'Multimodal small',
+    description: 'For multimodal inputs & fast responses',
+  },
+  {
+    id: 'chat-model-multimodal-large',
+    name: 'Multimodal large',
+    description: 'For multimodal inputs & complex tasks',
   },
 ];
