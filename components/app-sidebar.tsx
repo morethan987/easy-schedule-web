@@ -3,26 +3,22 @@
 import type { User } from 'next-auth';
 import { useRouter } from 'next/navigation';
 import * as React from "react"
-import { ArchiveX, Command, File, Inbox, Send, Trash2, History } from "lucide-react"
+import { Inbox, History, CalendarCheck } from "lucide-react"
 import { NavUser } from "@/components/sidebar-user-nav"
-import { Label } from "@/components/ui/label"
-import { Switch } from "@/components/ui/switch"
 import { Button } from "@/components/ui/button"
 import { PlusIcon } from "@/components/icons"
 import {
   Sidebar,
   SidebarContent,
-  SidebarFooter,
   SidebarHeader,
   SidebarMenu,
   useSidebar,
   SidebarGroup,
   SidebarGroupContent,
-  SidebarInput,
   SidebarMenuButton,
   SidebarMenuItem,
 } from '@/components/ui/sidebar';
-import Link from 'next/link';
+import { CheckboxReactHookFormMultiple } from './sidebar-check-list';
 import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip';
 import { SidebarHistory } from './sidebar-history';
 
@@ -44,6 +40,12 @@ const data = {
       title: "History",
       url: "#",
       icon: History,
+      isActive: false,
+    },
+    {
+      title: "Calendar",
+      url: "#",
+      icon: CalendarCheck,
       isActive: false,
     },
   ],
@@ -139,7 +141,8 @@ export function AppSidebar({
         <SidebarContent>
           <SidebarGroup className="px-0">
             <SidebarGroupContent>
-              {/* TODO:增加inbox界面*/}
+              {/* TODO:增加calender界面*/}
+              {activeItem.title === "Inbox" && <CheckboxReactHookFormMultiple />}
               {activeItem.title === "History" && <SidebarHistory user={user} />}
             </SidebarGroupContent>
           </SidebarGroup>

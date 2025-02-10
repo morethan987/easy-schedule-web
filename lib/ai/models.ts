@@ -31,12 +31,21 @@ const glm4Plus = GLM('glm-4-plus') // 文本模型
 const glm4VPlus = GLM('glm-4v-plus') // 多模态模型
 const glm4VFlash = GLM('glm-4v-flash') // 多模态模型
 
+// 千问大模型
+const Qwen = createOpenAICompatible({
+  baseURL: 'https://dashscope.aliyuncs.com/compatible-mode/v1',
+  apiKey: process.env.QWEN_API_KEY,
+  name: 'Qwen',
+})
+const qwenMaxLatest = Qwen('qwen-max-latest') // 文本模型
+const qwenV3 = Qwen('deepseek-v3') // 文本模型
+const qwenR1 = Qwen('deepseek-r1') // 文本模型
 
 export const DEFAULT_CHAT_MODEL: string = 'chat-model-small';
 
 export const myProvider = customProvider({
   languageModels: {
-    'chat-model-small': deepseek('deepseek-chat'),
+    'chat-model-small': qwenMaxLatest,
     'chat-model-large': glm4Plus,
     'chat-model-multimodal-small': glm4VFlash,
     'chat-model-multimodal-large': glm4VPlus,
@@ -45,7 +54,7 @@ export const myProvider = customProvider({
       middleware: extractReasoningMiddleware({ tagName: 'think' }),
     }),
     'title-model': tencentV3,
-    'block-model': deepseek('deepseek-chat'),
+    'block-model': qwenMaxLatest,
   },
   // imageModels: {
   //   'small-model': openai.image('dall-e-2'),
