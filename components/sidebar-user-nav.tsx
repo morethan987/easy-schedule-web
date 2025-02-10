@@ -26,6 +26,7 @@ import {
   LogOut,
   Sun,
   Moon,
+  Bolt,
 } from "lucide-react"
 import {
   Avatar,
@@ -100,6 +101,10 @@ export function NavUser({
               onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
               {theme === 'dark' ? <Sun /> : <Moon />}
               {`To ${theme === 'light' ? 'dark' : 'light'} mode`}
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <Bolt />
+              Settings
             </DropdownMenuItem>
             <DropdownMenuItem
               onClick={() => {

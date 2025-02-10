@@ -3,10 +3,12 @@
 import type { User } from 'next-auth';
 import { useRouter } from 'next/navigation';
 import * as React from "react"
-import { ArchiveX, Command, File, Inbox, Send, Trash2 } from "lucide-react"
+import { ArchiveX, Command, File, Inbox, Send, Trash2, History } from "lucide-react"
 import { NavUser } from "@/components/sidebar-user-nav"
 import { Label } from "@/components/ui/label"
 import { Switch } from "@/components/ui/switch"
+import { Button } from "@/components/ui/button"
+import { PlusIcon } from "@/components/icons"
 import {
   Sidebar,
   SidebarContent,
@@ -23,53 +25,6 @@ import {
 import Link from 'next/link';
 import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip';
 
-// export function AppSidebar({ user }: { user: User | undefined }) {
-//   const router = useRouter();
-//   const { setOpenMobile } = useSidebar();
-
-//   return (
-//     <Sidebar className="group-data-[side=left]:border-r-0">
-//       <SidebarHeader>
-//         <SidebarMenu>
-//           <div className="flex flex-row justify-between items-center">
-//             <Link
-//               href="/"
-//               onClick={() => {
-//                 setOpenMobile(false);
-//               }}
-//               className="flex flex-row gap-3 items-center"
-//             >
-//               <span className="text-lg font-semibold px-2 hover:bg-muted rounded-md cursor-pointer">
-//                 EasySchedule
-//               </span>
-//             </Link>
-//             <Tooltip>
-//               <TooltipTrigger asChild>
-//                 <Button
-//                   variant="ghost"
-//                   type="button"
-//                   className="p-2 h-fit"
-//                   onClick={() => {
-//                     setOpenMobile(false);
-//                     router.push('/');
-//                     router.refresh();
-//                   }}
-//                 >
-//                   <PlusIcon />
-//                 </Button>
-//               </TooltipTrigger>
-//               <TooltipContent align="end">New Chat</TooltipContent>
-//             </Tooltip>
-//           </div>
-//         </SidebarMenu>
-//       </SidebarHeader>
-//       <SidebarContent>
-//         {/* <SidebarHistory user={user} /> */}
-//       </SidebarContent>
-//       <SidebarFooter>{user && <SidebarUserNav user={user} />}</SidebarFooter>
-//     </Sidebar>
-//   );
-// }
 
 const data = {
   user: {
@@ -85,27 +40,9 @@ const data = {
       isActive: true,
     },
     {
-      title: "Drafts",
+      title: "History",
       url: "#",
-      icon: File,
-      isActive: false,
-    },
-    {
-      title: "Sent",
-      url: "#",
-      icon: Send,
-      isActive: false,
-    },
-    {
-      title: "Junk",
-      url: "#",
-      icon: ArchiveX,
-      isActive: false,
-    },
-    {
-      title: "Trash",
-      url: "#",
-      icon: Trash2,
+      icon: History,
       isActive: false,
     },
   ],
@@ -216,22 +153,11 @@ export function AppSidebar({
       {/* This will make the sidebar appear as icons. */}
       <Sidebar
         collapsible="none"
-        className="!w-[calc(var(--sidebar-width-icon)_+_1px)] border-r"
-      >
+        className="!w-[calc(var(--sidebar-width-icon)_+_1px)] border-r">
         <SidebarHeader>
           <SidebarMenu>
             <SidebarMenuItem>
-              <SidebarMenuButton size="lg" asChild className="md:h-8 md:p-0">
-                <a href="#">
-                  <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-                    <Command className="size-4" />
-                  </div>
-                  <div className="grid flex-1 text-left text-sm leading-tight">
-                    <span className="truncate font-semibold">Acme Inc</span>
-                    <span className="truncate text-xs">Enterprise</span>
-                  </div>
-                </a>
-              </SidebarMenuButton>
+              {user && <NavUser user={user} />}
             </SidebarMenuItem>
           </SidebarMenu>
         </SidebarHeader>
@@ -270,9 +196,6 @@ export function AppSidebar({
             </SidebarGroupContent>
           </SidebarGroup>
         </SidebarContent>
-        <SidebarFooter>
-          {user && <NavUser user={user} />}
-        </SidebarFooter>
       </Sidebar>
 
       {/* This is the second sidebar */}
@@ -283,10 +206,23 @@ export function AppSidebar({
             <div className="text-base font-medium text-foreground">
               {activeItem.title}
             </div>
-            <Label className="flex items-center gap-2 text-sm">
-              <span>Unreads</span>
-              <Switch className="shadow-none" />
-            </Label>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  variant="ghost"
+                  type="button"
+                  className="p-2 h-fit"
+                  onClick={() => {
+                    setOpenMobile(false);
+                    router.push('/');
+                    router.refresh();
+                  }}
+                >
+                  <PlusIcon />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent align="end">New Chat</TooltipContent>
+            </Tooltip>
           </div>
           <SidebarInput placeholder="Type to search..." />
         </SidebarHeader>
