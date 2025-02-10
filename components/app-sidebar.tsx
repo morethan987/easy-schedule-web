@@ -24,6 +24,7 @@ import {
 } from '@/components/ui/sidebar';
 import Link from 'next/link';
 import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip';
+import { SidebarHistory } from './sidebar-history';
 
 
 const data = {
@@ -224,27 +225,12 @@ export function AppSidebar({
               <TooltipContent align="end">New Chat</TooltipContent>
             </Tooltip>
           </div>
-          <SidebarInput placeholder="Type to search..." />
         </SidebarHeader>
         <SidebarContent>
           <SidebarGroup className="px-0">
             <SidebarGroupContent>
-              {mails.map((mail) => (
-                <a
-                  href="#"
-                  key={mail.email}
-                  className="flex flex-col items-start gap-2 whitespace-nowrap border-b p-4 text-sm leading-tight last:border-b-0 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
-                >
-                  <div className="flex w-full items-center gap-2">
-                    <span>{mail.name}</span>{" "}
-                    <span className="ml-auto text-xs">{mail.date}</span>
-                  </div>
-                  <span className="font-medium">{mail.subject}</span>
-                  <span className="line-clamp-2 w-[260px] whitespace-break-spaces text-xs">
-                    {mail.teaser}
-                  </span>
-                </a>
-              ))}
+              {/* TODO:增加inbox界面*/}
+              {activeItem.title === "History" && <SidebarHistory user={user} />}
             </SidebarGroupContent>
           </SidebarGroup>
         </SidebarContent>
