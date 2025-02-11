@@ -37,15 +37,15 @@ const data = {
       isActive: true,
     },
     {
-      title: "History",
-      url: "#",
-      icon: History,
-      isActive: false,
-    },
-    {
       title: "Calendar",
       url: "#",
       icon: CalendarCheck,
+      isActive: false,
+    },
+    {
+      title: "History",
+      url: "#",
+      icon: History,
       isActive: false,
     },
   ],
@@ -142,7 +142,12 @@ export function AppSidebar({
           <SidebarGroup className="px-0">
             <SidebarGroupContent>
               {/* TODO:增加calender界面*/}
-              {activeItem.title === "Inbox" && <CheckboxReactHookFormMultiple />}
+              {activeItem.title === "Inbox" &&
+                <div className="space-y-4">
+                  <CheckboxReactHookFormMultiple type={'Work'} />
+                  <CheckboxReactHookFormMultiple type={'Personal'}/>
+                </div>
+              }
               {activeItem.title === "History" && <SidebarHistory user={user} />}
             </SidebarGroupContent>
           </SidebarGroup>

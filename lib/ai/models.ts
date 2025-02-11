@@ -1,5 +1,6 @@
 import { config } from 'dotenv';
 import { deepseek } from '@ai-sdk/deepseek';
+import { createMem0 } from "@mem0/vercel-ai-provider";
 import { createOpenAICompatible } from '@ai-sdk/openai-compatible';
 import {
   customProvider,
@@ -9,6 +10,17 @@ import {
 
 config({
   path: '.env',
+});
+
+// Mem0提供的开箱即用模型，暂时没有使用；记忆直接通过提示词注入别的供应商的模型
+const mem0 = createMem0({
+  name: 'Mem0',
+  provider: 'deepseek',
+  mem0ApiKey: process.env.MEM0_API_KEY,
+  apiKey: process.env.DEEPSEEK_API_KEY,
+  config: {
+    compatibility: 'compatible',
+  }
 });
 
 // 配置腾讯云
