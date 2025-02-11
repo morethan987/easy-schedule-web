@@ -3,8 +3,9 @@ import {
   createDataStreamResponse,
   smoothStream,
   streamText,
+  LanguageModelV1Prompt,
 } from 'ai';
-
+import { addMemories } from "@mem0/vercel-ai-provider";
 import { auth } from '@/app/(auth)/auth';
 import { myProvider } from '@/lib/ai/models';
 import { systemPrompt } from '@/lib/ai/prompts';
@@ -105,6 +106,18 @@ export async function POST(request: Request) {
                   };
                 }),
               });
+
+              // 聊天结束后更新记忆
+              const mem0_suitable_messages: LanguageModelV1Prompt = [
+                { role: "user", content: [{ type: "text", text: "I love red cars." }] },
+              ];
+              await addMemories(
+                mem0_suitable_messages,
+                {
+                  user_id: session.user.id,
+                  mem0ApiKey: process.env.MEM0_API_KEY,
+                }
+              );
             } catch (error) {
               console.error('Failed to save chat');
             }
