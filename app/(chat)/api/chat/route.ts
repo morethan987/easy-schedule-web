@@ -3,9 +3,8 @@ import {
   createDataStreamResponse,
   smoothStream,
   streamText,
-  LanguageModelV1Prompt,
 } from 'ai';
-import { addMemories } from "@mem0/vercel-ai-provider";
+import { addMemories, retrieveMemories } from "@mem0/vercel-ai-provider";
 import { auth } from '@/app/(auth)/auth';
 import { myProvider } from '@/lib/ai/models';
 import { systemPrompt } from '@/lib/ai/prompts';
@@ -50,6 +49,15 @@ export async function POST(request: Request) {
     return new Response('No user message found', { status: 400 });
   }
 
+  // 根据用户消息提取原有记忆
+  const memories = await retrieveMemories(
+    convertToMem0SuitableMessages({message: userMessage}),
+    {
+      user_id: session.user.id,
+      mem0ApiKey: process.env.MEM0_API_KEY,
+    }
+  );
+
   // 用户发送新消息后直接更新记忆
   addMemories(
     convertToMem0SuitableMessages({message: userMessage}),
@@ -74,7 +82,7 @@ export async function POST(request: Request) {
     execute: (dataStream) => {
       const result = streamText({
         model: myProvider.languageModel(selectedChatModel),
-        system: systemPrompt({ selectedChatModel }),
+        system: `${systemPrompt({ selectedChatModel })}\n\nUser preferences you should KEEP IN MIND:\n${memories}`,
         messages,
         maxSteps: 5,
         experimental_activeTools:
