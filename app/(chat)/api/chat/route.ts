@@ -18,6 +18,7 @@ import {
 import {
   generateUUID,
   getMostRecentUserMessage,
+  convertToMem0SuitableMessages,
   sanitizeResponseMessages,
 } from '@/lib/utils';
 
@@ -48,6 +49,15 @@ export async function POST(request: Request) {
   if (!userMessage) {
     return new Response('No user message found', { status: 400 });
   }
+
+  // 用户发送新消息后直接更新记忆
+  addMemories(
+    convertToMem0SuitableMessages({message: userMessage}),
+    {
+      user_id: session.user.id,
+      mem0ApiKey: process.env.MEM0_API_KEY,
+    }
+  );
 
   const chat = await getChatById({ id });
 
@@ -106,18 +116,6 @@ export async function POST(request: Request) {
                   };
                 }),
               });
-
-              // 聊天结束后更新记忆
-              const mem0_suitable_messages: LanguageModelV1Prompt = [
-                { role: "user", content: [{ type: "text", text: "I love red cars." }] },
-              ];
-              await addMemories(
-                mem0_suitable_messages,
-                {
-                  user_id: session.user.id,
-                  mem0ApiKey: process.env.MEM0_API_KEY,
-                }
-              );
             } catch (error) {
               console.error('Failed to save chat');
             }

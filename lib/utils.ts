@@ -4,6 +4,7 @@ import type {
   Message,
   TextStreamPart,
   ToolInvocation,
+  LanguageModelV1Prompt,
   ToolSet,
 } from 'ai';
 import { type ClassValue, clsx } from 'clsx';
@@ -228,4 +229,35 @@ export function getDocumentTimestampByIndex(
   if (index > documents.length) return new Date();
 
   return documents[index].createdAt;
+}
+
+export function convertToMem0SuitableMessages({
+  message,
+}: {
+  message: Message;
+}): LanguageModelV1Prompt {
+  
+  // 检查 role 是否合法
+  if (message.role !== 'user' && message.role !== 'assistant') {
+    throw new Error(
+      `Invalid role: ${message.role}. This function only supports 'user' or 'assistant' roles.`
+    );
+  }
+
+  // 通过类型守卫确保 role 类型
+  const role = message.role as 'user' | 'assistant';
+
+  const formattedMessage = {
+    role,
+    content: [
+      {
+        type: 'text',
+        text: message.content,
+      },
+    ],
+  };
+
+  return [
+formattedMessage
+] as LanguageModelV1Prompt;
 }
