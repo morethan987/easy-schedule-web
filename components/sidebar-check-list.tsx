@@ -19,31 +19,43 @@ const items = [
   {
     id: "recents",
     label: "Recents",
+    priority: "high",
+    schedule: "13:00",
     description: "Your recent files",
   },
   {
     id: "home",
     label: "Home",
+    priority: "meidum",
+    schedule: "13:00",
     description: "Your home files",
   },
   {
     id: "applications",
     label: "Applications",
+    priority: "low",
+    schedule: "13:00",
     description: "Your application files",
   },
   {
     id: "desktop",
     label: "Desktop",
+    priority: "none",
+    schedule: "13:00",
     description: "Your desktop files",
   },
   {
     id: "downloads",
     label: "Downloads",
+    priority: "high",
+    schedule: "13:00",
     description: "Your downloaded files",
   },
   {
     id: "documents",
     label: "Documents",
+    priority: "high",
+    schedule: "13:00",
     description: "Your document files",
   },
 ] as const
