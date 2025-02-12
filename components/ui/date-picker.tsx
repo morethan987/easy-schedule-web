@@ -2,7 +2,6 @@
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { format } from "date-fns"
-import { CalendarIcon } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 
@@ -34,6 +33,9 @@ const FormSchema = z.object({
 export function DatePickerForm() {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
+    defaultValues: {
+      dob: new Date(),
+    }
   })
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
@@ -55,26 +57,26 @@ export function DatePickerForm() {
           name="dob"
           render={({ field }) => (
             <FormItem className="flex flex-col">
-              <FormLabel>Date of birth</FormLabel>
               <Popover>
+                {/* 外显样式 */}
                 <PopoverTrigger asChild>
                   <FormControl>
                     <Button
-                      variant={"outline"}
+                      variant="secondary"
                       className={cn(
-                        "w-[240px] pl-3 text-left font-normal",
+                        "h-7 rounded-full px-3 text-sm text-white bg-slate-800 hover:bg-slate-600",
                         !field.value && "text-muted-foreground"
                       )}
                     >
                       {field.value ? (
-                        format(field.value, "PPP")
+                        format(field.value, "MMM d")
                       ) : (
-                        <span>Pick a date</span>
+                        <span className="text-white">Today</span>
                       )}
-                      <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                     </Button>
                   </FormControl>
                 </PopoverTrigger>
+                {/* 内隐样式 */}
                 <PopoverContent className="w-auto p-0" align="start">
                   <Calendar
                     mode="single"
@@ -87,9 +89,6 @@ export function DatePickerForm() {
                   />
                 </PopoverContent>
               </Popover>
-              <FormDescription>
-                Your date of birth is used to calculate your age.
-              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
