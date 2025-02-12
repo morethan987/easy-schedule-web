@@ -20,6 +20,7 @@ export interface CreateDocumentCallbackProps {
   id: string;
   title: string;
   dataStream: DataStreamWriter;
+  chatId: string;
   session: Session;
 }
 
@@ -48,6 +49,7 @@ export function createDocumentHandler<T extends BlockKind>(config: {
         id: args.id,
         title: args.title,
         dataStream: args.dataStream,
+        chatId: args.chatId,
         session: args.session,
       });
 
@@ -58,6 +60,7 @@ export function createDocumentHandler<T extends BlockKind>(config: {
           content: draftContent,
           kind: config.kind,
           userId: args.session.user.id,
+          chatId: args.chatId,
         });
       }
 
@@ -78,6 +81,7 @@ export function createDocumentHandler<T extends BlockKind>(config: {
           content: draftContent,
           kind: config.kind,
           userId: args.session.user.id,
+          chatId: args.document.chatId,
         });
       }
 
