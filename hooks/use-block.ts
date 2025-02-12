@@ -65,7 +65,7 @@ export function useBlock() {
 
   const { data: localBlockMetadata, mutate: setLocalBlockMetadata } =
     useSWR<any>(
-      () => (block.documentId ? `block-metadata-${block.documentId}` : null),
+      () => (block.documentId && block.documentId !== 'init' ? `block-metadata-${block.documentId}` : null),
       null,
       {
         fallbackData: null,

@@ -98,9 +98,8 @@ function PureBlock({
     isLoading: isDocumentsFetching,
     mutate: mutateDocuments,
   } = useSWR<Array<Document>>(
-    block.documentId === 'init'
-      ? `/api/document?chatId=${chatId}`:block.documentId && block.status !== 'streaming'
-      ? `/api/document?id=${block.documentId}`:null,
+    block.documentId && block.documentId !== 'init' && block.status !== 'streaming'
+      ? `/api/document?id=${block.documentId}` : null,
       fetcher,
   );
 
