@@ -53,7 +53,8 @@ export async function POST(request: Request) {
     content,
     title,
     kind,
-  }: { content: string; title: string; kind: BlockKind } = await request.json();
+    chatId,
+  }: { content: string; title: string; kind: BlockKind; chatId: string } = await request.json();
 
   if (session.user?.id) {
     const document = await saveDocument({
@@ -61,6 +62,7 @@ export async function POST(request: Request) {
       content,
       title,
       kind,
+      chatId,
       userId: session.user.id,
     });
 

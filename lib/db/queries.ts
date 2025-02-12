@@ -71,8 +71,14 @@ export async function saveChat({
 
 export async function deleteChatById({ id }: { id: string }) {
   try {
+    // Get documents first
+    const documents = await db.select({ id: document.id }).from(document).where(eq(document.chatId, id));
+    const documentIds = documents.map(doc => doc.id);
+
     await db.delete(vote).where(eq(vote.chatId, id));
     await db.delete(message).where(eq(message.chatId, id));
+    await db.delete(suggestion).where(inArray(suggestion.documentId, documentIds));
+    await db.delete(document).where(eq(document.chatId, id));
 
     return await db.delete(chat).where(eq(chat.id, id));
   } catch (error) {
@@ -172,6 +178,7 @@ export async function saveDocument({
   title,
   kind,
   content,
+  chatId,
   userId,
 }: {
   id: string;
@@ -179,6 +186,7 @@ export async function saveDocument({
   kind: BlockKind;
   content: string;
   userId: string;
+  chatId: string;
 }) {
   try {
     return await db.insert(document).values({
@@ -187,6 +195,7 @@ export async function saveDocument({
       kind,
       content,
       userId,
+      chatId,
       createdAt: new Date(),
     });
   } catch (error) {
@@ -209,6 +218,22 @@ export async function getDocumentsById({ id }: { id: string }) {
     throw error;
   }
 }
+
+export async function getDocumentsByChatId({ chatId }: { chatId: string }) {
+  try {
+    const documents = await db
+      .select()
+      .from(document)
+      .where(eq(document.chatId, chatId))
+      .orderBy(asc(document.createdAt));
+
+    return documents;
+  } catch (error) {
+    console.error('Failed to get documents by chat id from database');
+    throw error;
+  }
+}
+
 
 export async function getDocumentById({ id }: { id: string }) {
   try {

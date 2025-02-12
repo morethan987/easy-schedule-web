@@ -98,10 +98,10 @@ function PureBlock({
     isLoading: isDocumentsFetching,
     mutate: mutateDocuments,
   } = useSWR<Array<Document>>(
-    block.documentId !== 'init' && block.status !== 'streaming'
-      ? `/api/document?id=${block.documentId}`
-      : null,
-    fetcher,
+    block.documentId === 'init'
+      ? `/api/document?chatId=${chatId}`:block.documentId && block.status !== 'streaming'
+      ? `/api/document?id=${block.documentId}`:null,
+      fetcher,
   );
 
   const [mode, setMode] = useState<'edit' | 'diff'>('edit');
@@ -155,6 +155,7 @@ function PureBlock({
                 title: block.title,
                 content: updatedContent,
                 kind: block.kind,
+                chatId,
               }),
             });
 
