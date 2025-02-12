@@ -7,6 +7,7 @@ import { Inbox, History, CalendarCheck } from "lucide-react"
 import { NavUser } from "@/components/sidebar-user-nav"
 import { Button } from "@/components/ui/button"
 import { PlusIcon } from "@/components/icons"
+import { DatePickerForm } from "@/components/ui/date-picker"
 import {
   Sidebar,
   SidebarContent,
@@ -18,6 +19,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from '@/components/ui/sidebar';
+import { CheckboxAdd } from './ui/checkbox';
 import { CheckboxReactHookFormMultiple } from './sidebar-check-list';
 import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip';
 import { SidebarHistory } from './sidebar-history';
@@ -141,11 +143,16 @@ export function AppSidebar({
         <SidebarContent>
           <SidebarGroup className="px-0">
             <SidebarGroupContent>
+              <DatePickerForm />
               {/* TODO:增加calender界面*/}
               {activeItem.title === "Inbox" &&
                 <div className="space-y-4">
                   <CheckboxReactHookFormMultiple type={'Work'} />
-                  <CheckboxReactHookFormMultiple type={'Personal'}/>
+                  {/* 在工作列表的下面添加一个特殊的任务，用于创建新的工作任务 */}
+                  <CheckboxAdd type={'Work'} />
+                  <CheckboxReactHookFormMultiple type={'Personal'} />
+                  {/* 在个人事项列表的下面添加一个特殊的任务，用于创建新的个人任务 */}
+                  <CheckboxAdd type={'Personal'} />
                 </div>
               }
               {activeItem.title === "History" && <SidebarHistory user={user} />}
