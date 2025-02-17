@@ -67,7 +67,7 @@ const FormSchema = z.object({
   }),
 })
 
-export function CheckboxReactHookFormMultiple({
+export function InboxList({
   type
 }: { type: string }) {
   const form = useForm<z.infer<typeof FormSchema>>({

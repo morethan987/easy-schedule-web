@@ -131,6 +131,9 @@ importers:
       lucide-react:
         specifier: ^0.446.0
         version: 0.446.0(react@19.0.0-rc-45804af1-20241021)
+      mem0ai:
+        specifier: ^1.0.33
+        version: 1.0.33(@types/node@22.9.0)(typescript@5.6.3)
       nanoid:
         specifier: ^5.0.8
         version: 5.0.8
@@ -3138,7 +3141,7 @@ packages:
     resolution: {integrity: sha512-AMlnetc9+CV9asI19zHmrgS/WYsWUwCn2R7RzlbJWD7F9eWYUTGyBmU9o6PxngtLGOiDGPRu+Uc4fhKzbpteZQ==}
 
   js-tokens@4.0.0:
-    resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
+    resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==, tarball: https://registry.npmmirror.com/js-tokens/-/js-tokens-4.0.0.tgz}
 
   js-yaml@4.1.0:
     resolution: {integrity: sha512-wpxZs9NoxZaJESJGIZTyDEaYpl0FKSA+FB9aJiyemKhMwkxQg63h4T1KJgUGHpTqPDNRcmmYLugrRjJlBtWvRA==}
@@ -3235,7 +3238,7 @@ packages:
     hasBin: true
 
   lru-cache@10.4.3:
-    resolution: {integrity: sha512-JNAzZcXrCt42VGLuYz0zfAzDfAvJWW6AfYlDBQyDV5DClI2m5sAmK+OIO7s59XfsRsWHp02jAJrRadPRGTt6SQ==}
+    resolution: {integrity: sha512-JNAzZcXrCt42VGLuYz0zfAzDfAvJWW6AfYlDBQyDV5DClI2m5sAmK+OIO7s59XfsRsWHp02jAJrRadPRGTt6SQ==, tarball: https://registry.npmmirror.com/lru-cache/-/lru-cache-10.4.3.tgz}
 
   lucide-react@0.446.0:
     resolution: {integrity: sha512-BU7gy8MfBMqvEdDPH79VhOXSEgyG8TSPOKWaExWGCQVqnGH7wGgDngPbofu+KdtVjPQBWbEmnfMTq90CTiiDRg==}
@@ -3303,8 +3306,8 @@ packages:
   mdurl@2.0.0:
     resolution: {integrity: sha512-Lf+9+2r+Tdp5wXDXC4PcIBjTDtq4UKjCPMQhKIuzpJNW0b96kVqSwW0bT7FhRSfmAiFYgP+SCRvdrDozfh0U5w==}
 
-  mem0ai@1.0.32:
-    resolution: {integrity: sha512-7q7GhquLUqRqm0/BhNDfSjJ/ksDqY7OuHAENZV2eZD+W9ht5h5PipjWnP/S3nPMvyA65+yeyHhKgkSbKQykm9A==, tarball: https://registry.npmmirror.com/mem0ai/-/mem0ai-1.0.32.tgz}
+  mem0ai@1.0.33:
+    resolution: {integrity: sha512-RC1Nd2zGFP6kINjgEO0R0eaKC3LYMXuywcQVFnPK2NvuJrZ9BpBjHg6gH3rhuFfgKeWP/TtD9FWtu36OmUOcAg==, tarball: https://registry.npmmirror.com/mem0ai/-/mem0ai-1.0.33.tgz}
     engines: {node: '>=18'}
 
   merge2@1.4.1:
@@ -5116,7 +5119,7 @@ snapshots:
       '@ai-sdk/provider-utils': 1.0.22(zod@3.24.1)
       ai: 3.4.33(react@19.0.0-rc-45804af1-20241021)(sswr@2.1.0(svelte@5.19.9))(svelte@5.19.9)(vue@3.5.13(typescript@5.6.3))(zod@3.24.1)
       dotenv: 16.4.5
-      mem0ai: 1.0.32(@types/node@22.9.0)(typescript@5.6.3)
+      mem0ai: 1.0.33(@types/node@22.9.0)(typescript@5.6.3)
       partial-json: 0.1.7
       ts-node: 10.9.2(@types/node@22.9.0)(typescript@5.6.3)
     optionalDependencies:
@@ -7457,7 +7460,7 @@ snapshots:
 
   mdurl@2.0.0: {}
 
-  mem0ai@1.0.32(@types/node@22.9.0)(typescript@5.6.3):
+  mem0ai@1.0.33(@types/node@22.9.0)(typescript@5.6.3):
     dependencies:
       axios: 1.7.9
       crypto: 1.0.1

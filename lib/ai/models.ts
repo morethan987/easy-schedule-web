@@ -66,7 +66,7 @@ export const myProvider = customProvider({
       middleware: extractReasoningMiddleware({ tagName: 'think' }),
     }),
     'title-model': tencentV3,
-    'block-model': qwenMaxLatest,
+    'artifact-model': qwenMaxLatest,
   },
   // imageModels: {
   //   'small-model': openai.image('dall-e-2'),
