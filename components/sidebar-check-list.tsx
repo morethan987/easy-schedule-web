@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/form"
 import { desc } from "drizzle-orm"
 
+// 数据从数据库中的Inbox表中获取
 const items = [
   {
     id: "recents",
@@ -66,7 +67,7 @@ const FormSchema = z.object({
   }),
 })
 
-export function CheckboxReactHookFormMultiple({
+export function InboxList({
   type
 }: { type: string }) {
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -78,7 +79,6 @@ export function CheckboxReactHookFormMultiple({
 
   return (
     <Form {...form}>
-
         <FormField
           control={form.control}
           name="items"
@@ -97,6 +97,7 @@ export function CheckboxReactHookFormMultiple({
                       <FormItem
                         key={item.id}
                         className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4"
+                        // TODO: 加一个onClick事件，右侧侧边栏展开任务详情
                       >
                         <FormControl>
                           <Checkbox

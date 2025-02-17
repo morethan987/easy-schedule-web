@@ -62,3 +62,43 @@ export function CheckboxDisabled() {
   )
 }
 
+// 一个特殊的禁用状态的复选框
+export function CheckboxAdd({
+  type
+}: { type: string }) {
+  return (
+    <div 
+      className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4"
+    >
+      <Checkbox id="terms2" disabled />
+      <div className="space-y-1 leading-none">
+        <label
+          htmlFor="terms2"
+          className="text-sm font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+        >
+          Add a new {type} task
+        </label>
+      </div>
+    </div>
+  )
+}
+
+export function CheckboxAddForm({
+  type
+}: { type: string }) {
+  return (
+    <div 
+      className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4"
+    >
+      <Checkbox id="terms2" disabled />
+      <div className="space-y-1 leading-none">
+        <label
+          htmlFor="terms2"
+          className="text-sm font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+        >
+          Accept terms and conditions
+        </label>
+      </div>
+    </div>
+  )
+}
